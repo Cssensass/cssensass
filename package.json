@@ -12,6 +12,7 @@
     "cssensass": "./index.js"
   },
   "dependencies": {
-    "commander": "^2.9.0"
+    "commander": "^2.9.0",
+    "hashmap": "^2.0.4"
   }
 }
