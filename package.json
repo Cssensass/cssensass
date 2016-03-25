@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "commander": "^2.9.0",
-    "hashmap": "^2.0.4"
+    "hashmap": "^2.0.4",
+    "hashset": "0.0.6"
   }
 }
