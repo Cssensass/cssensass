@@ -9,12 +9,12 @@ function Context(){
 	this.relations = new HashMap();
 	this.reverseRelations = new HashMap();
 
-	this.addEntity = function(entity, attributes){
-		this.entities[entity] = attributes;
+	this.addEntity = function(entity){
+		this.entities[entity] = entity;
 	}
 
-	this.addAttribute = function(attribute, value){
-		this.attributes[attribute] = value;
+	this.addAttribute = function(attribute){
+		this.attributes[attribute] = attribute;
 	}
 
 	this.addRelation = function(entity, attribute){
@@ -39,7 +39,7 @@ function Context(){
 
 		console.log('Attributes :');
 		for(var attribute in this.attributes){
-			console.log('\t' + attribute + ': ' + this.attributes[attribute]);
+			console.log('\t' + attribute);
 		}
 		console.log();
 
@@ -65,13 +65,25 @@ console.log('Test of context.js :');
 
 var testContext = new Context();
 
-var attribute = {
-	'color' : 'grey',
-	'font-size' : '1em'
-}
+testContext.addAttribute('color : black');
+testContext.addAttribute('font-size : 1em');
+testContext.addAttribute('font-size : 1.2em');
+testContext.addAttribute('font-size : 1.3em');
+testContext.addAttribute('font-weight : 100');
+testContext.addAttribute('font-weight : 200');
+testContext.addAttribute('padding : 0');
+testContext.addAttribute('margin : 5px');
+testContext.addAttribute('margin : 10px');
 
-testContext.addAttribute('color', 'grey');
-testContext.addAttribute('font-size', '1em');
-testContext.addEntity('body')
+testContext.addEntity('body');
+testContext.addEntity('a');
+testContext.addEntity('.info');
+testContext.addEntity('.error');
+testContext.addEntity('#content');
+
+
+
 
 testContext.printMatrixElement();
+
+
