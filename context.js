@@ -5,9 +5,9 @@ var HashMap = require('hashmap');
 
 function Context(){
 	this.entities = {};
-	this.attributes = {}
-	this.relations = new HashMap();
-	this.reverseRelations = new HashMap();
+	this.attributes = {};
+	this.relations = {};
+	this.reverseRelations = {};
 
 	this.addEntity = function(entity){
 		this.entities[entity] = entity;
@@ -18,16 +18,12 @@ function Context(){
 	}
 
 	this.addRelation = function(entity, attribute){
-		if (!this.relations.has(attribute)){
-			this.relations.set(entity, new HashSet());
+		if (!(this.relations[entity])){
+			this.relations[entity] = {};
 		}
 
-		this.relations.get(entity).add(attribute);
+		this.relations[entity] = attribute;
 
-		if (!this.reverseRelations.has(attribute)) {
-            this.reverseRelations.set(attribute, new HashSet());
-        }
-        this.reverseRelations.get(attribute).add(entity);
 	}
 
 	this.printMatrixElement = function() {
@@ -44,17 +40,10 @@ function Context(){
 		console.log();
 
 		console.log('Relations :');
-		for (var i in this.relations){
-			console.log('\t Key is: ' + i.toString() + '. \t Value is: ' + relations[i].toString());
+		for (var entity in this.relations){
+				console.log('\t Key is: ' + entity + '. \t Value is: ' + this.relations[entity]);			
 		}
 		console.log();
-
-		console.log('Reverse relations :');
-		for (var i in this.reverseRelations){
-			console.log('\t Key is: ' + i.toString() + '. \t Value is: ' + reverseRelations[i].toString());
-		}
-		console.log();
-
 	}
 
 
@@ -80,6 +69,8 @@ testContext.addEntity('a');
 testContext.addEntity('.info');
 testContext.addEntity('.error');
 testContext.addEntity('#content');
+
+testContext.addRelation('body', 'margin : 10px');
 
 
 
