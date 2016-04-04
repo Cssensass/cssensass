@@ -1,58 +1,75 @@
 #!/usr/bin/env node
 
-var HashSet = require('hashset');
-var HashMap = require('hashmap'); 
+var HashSet = require('./hashset.js');
+var Map = require('./map.js');
+
+
 
 function Context(){
-	this.entities = {};
-	this.attributes = {};
-	this.relations = {};
-	this.reverseRelations = {};
+	this.entities = [];
+	this.attributes = [];
+	this.relations = [];
+	this.reverseRelations = [];
 
 	this.addEntity = function(entity){
-		this.entities[entity] = entity;
+		this.entities.push(entity);
 	}
 
 	this.addAttribute = function(attribute){
-		this.attributes[attribute] = attribute;
+		this.attributes.push(attribute);
 	}
 
 	this.addRelation = function(entity, attribute){
-		if (!this.relations[entity]){
-			this.relations[entity] = {};
+		var foundEntity = false;
+		for(var i=0; i<this.relations.length; i++) {
+			if(this.relations[i][0] == entity && this.relations[i][1] == attribute) {
+				foundEntity = true;
+				break;
+			}
 		}
 
-		this.relations[entity] = attribute;
-
-		if (!(this.reverseRelations[attribute])){
-			this.reverseRelations[attribute] = {};
+		if (!foundEntity){
+			this.relations.push([entity, attribute]);
 		}
 
-		this.reverseRelations[attribute] = entity;
+		var foundAttribute = false;
+
+		for(var i=0; i<this.reverseRelations.length; i++) {
+			if(this.reverseRelations[i][0] == attribute && this.reverseRelations[i][1] == entity) {
+				foundAttribute = true;
+				break;
+			}
+		}
+
+		if (!foundAttribute){
+			this.reverseRelations.push([attribute, entity]);
+		}
 	}
 
 	this.printMatrixElement = function() {
 		console.log('Entities :');
-		for(var entity in this.entities){
-			console.log('\t' + entity);
+		for(var i=0; i<this.entities.length; i++){
+			console.log('\t' + this.entities[i]);
 		}
 		console.log();
 
 		console.log('Attributes :');
-		for(var attribute in this.attributes){
-			console.log('\t' + attribute);
+		for(var i=0; i<this.attributes.length; i++){
+			console.log('\t' + this.attributes[i]);
 		}
 		console.log();
 
 		console.log('Relations :');
-		for (var entity in this.relations){
-				console.log('\t Key is: ' + entity + '. \t Value is: ' + this.relations[entity]);			
+		for (var i=0; i<this.relations.length; i++){
+			console.log('\t Key is: ' + this.relations[i][0] + '. \t Value is: ' + this.relations[i][1]);
 		}
 		console.log();
 
 		console.log('Reverse relations :');
-		for (var attribute in this.reverseRelations){
-				console.log('\t Key is: ' + attribute + '. \t Value is: ' + this.reverseRelations[attribute]);			
+		
+		for (var i=0; i<this.reverseRelations.length; i++){
+			console.log('\t Key is: ' + this.reverseRelations[i][0] + '. \t Value is: ' + this.reverseRelations[i][1]);			
+		
 		}
 		console.log();
 	}
@@ -67,7 +84,7 @@ var testContext = new Context();
 
 var entitiesTest = {
 	
-}
+};
 
 testContext.addAttribute('color : black');
 testContext.addAttribute('font-size : 1em');
@@ -104,5 +121,3 @@ testContext.addRelation('#content', 'font-weight : 100');
 
 
 testContext.printMatrixElement();
-
-
