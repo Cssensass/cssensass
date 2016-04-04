@@ -149,6 +149,8 @@ for(i=0; i<lines.length; i++){
 return tabCorrespondanceFinal;
 }
 
+
+// TESTS //////////////////////////////////
 var columns = MatrixColumns(cssContent);
 var lines = MatrixLines(cssContent);
 var correspondances = fillMatrix(cssContent);
