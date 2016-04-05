@@ -1,0 +1,29 @@
+body {
+    font-size : 1em;
+    padding : 0;
+}
+
+a {
+    color: black;
+}
+
+.info {
+    font-size : 1.2em;
+    color: black;
+    font-weight : 100;
+    margin: 5px;
+}
+
+.error {
+    font-size : 1.3em;
+    color: black;
+    font-weight : 200;
+    margin: 10px;
+}
+
+#content {
+    font-size : 1.2em;
+    padding : 0;
+    color: black;
+    font-weight : 100;
+}

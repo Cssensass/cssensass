@@ -1,10 +1,5 @@
 #!/usr/bin/env node
 
-var HashSet = require('./hashset.js');
-var Map = require('./map.js');
-
-
-
 function Context(){
 	this.entities = [];
 	this.attributes = [];
