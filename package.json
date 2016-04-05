@@ -14,6 +14,7 @@
   "dependencies": {
     "chai": "^3.5.0",
     "commander": "^2.9.0",
+    "css-js": "^1.0.6",
     "express": "^4.13.4",
     "hashmap": "^2.0.4",
     "hashset": "0.0.6",

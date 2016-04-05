@@ -77,10 +77,6 @@ console.log('Test of context.js :');
 
 var testContext = new Context();
 
-var entitiesTest = {
-	
-};
-
 testContext.addAttribute('color : black');
 testContext.addAttribute('font-size : 1em');
 testContext.addAttribute('font-size : 1.2em');
