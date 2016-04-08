@@ -6,9 +6,9 @@ var config = {};
 config.ver = "3.0";
 parser = new CSSParser(config);
  
-var cssContent = parser.parse(fs.readFileSync("test.css", "UTF-8"));
+var cssContent = parser.parse(fs.readFileSync("test/test.css", "UTF-8"));
 //console.log(cssContent);
-
+/*
 console.assert(Object.keys(cssContent).length == 1);
 console.assert(Object.keys(cssContent)[0] === "rulesets");
 console.assert(cssContent.rulesets[0].selector === "body");
@@ -17,7 +17,7 @@ console.assert(cssContent.rulesets[0].declaration[0].key === "color");
 console.assert(cssContent.rulesets[0].declaration[0].value === "black");
 console.assert(cssContent.rulesets[0].declaration[1].key === "background");
 console.assert(cssContent.rulesets[0].declaration[1].value === "gray");
-
+*/
 // //////////////Matrix /////////////////////////////////////
 var Selector = {
 	init: function(selector){
