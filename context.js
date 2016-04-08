@@ -9,6 +9,21 @@ parser = new CSSParser(config);
  
 var cssContent = parser.parse(fs.readFileSync("test/test.css", "UTF-8"));
 
+function printObject(o, indent) {
+	  var out = '';
+	  if(!indent)
+	  	indent = 0;
+	  for (var p in o) {
+	  	for(var i=0; i<indent*4; i++)
+	  		out += ' ';
+	  	if(typeof o[p] === 'object')
+	  		out += p + ': \n' + printObject(o[p], indent+1);
+	  	else
+	    	out += p + ': ' + o[p] + '\n';
+	  }
+	  return out;
+	}
+
 function Context(){
 	this.entities = [];
 	this.attributes = [];
@@ -118,14 +133,14 @@ function Context(){
 
 		console.log('Relations :');
 		for (var i=0; i<this.relations.length; i++){
-			console.log('\t Key is: ' + this.relations[i][0] + '. \t Value is: ' + this.relations[i][1]);
+			console.log('\t Key is: ' + this.relations[i][0] + '. \t his attributes are: \n' + printObject(this.relations[i][1]));
 		}
 		console.log();
 
 		console.log('Reverse relations :');
 		
 		for (var i=0; i<this.reverseRelations.length; i++){
-			console.log('\t Key is: ' + this.reverseRelations[i][0] + '. \t Value is: ' + this.reverseRelations[i][1]);			
+			console.log('Attributes are : \n' + printObject(this.reverseRelations[i][0]) + '\n Value is: \n' + this.reverseRelations[i][1]);			
 		
 		}
 		console.log();
