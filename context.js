@@ -16,7 +16,7 @@ function printObject(o, indent) {
 	return out;
 }
 
-exports.context = function Context(){
+var context = function Context(){
 	this.entities = [];
 	this.attributes = [];
 	this.relations = [];
@@ -137,6 +137,6 @@ exports.context = function Context(){
 		}
 		console.log();
 	}
-
-
 }
+
+module.exports = context;
