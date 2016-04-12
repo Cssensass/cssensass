@@ -24,7 +24,7 @@ function printObject(o, indent) {
 	  return out;
 	}
 
-function Context(){
+var context = function Context(){
 	this.entities = [];
 	this.attributes = [];
 	this.relations = [];
@@ -152,7 +152,8 @@ function Context(){
 console.log('Hello user, welcome on CssenSass !');
 console.log('Test of context.js :');
 
-var testContext = new Context();
+module.exports = context;
+/*var testContext = new Context();
 
 for (i=0; i<cssContent.rulesets.length; i++){
 	testContext.addEntity(cssContent.rulesets[i].selector);	
@@ -170,4 +171,4 @@ for (i=0; i<cssContent.rulesets.length; i++){
 
 console.log(testContext);
 
-testContext.printMatrixElement();
+testContext.printMatrixElement();*/
