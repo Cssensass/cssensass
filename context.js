@@ -1,30 +1,22 @@
 #!/usr/bin/env node
 
-var CSSParser = require("css-js");
-var fs = require("fs");
-
-var config = {};
-config.ver = "3.0";
-parser = new CSSParser(config);
- 
-var cssContent = parser.parse(fs.readFileSync("test/test.css", "UTF-8"));
 
 function printObject(o, indent) {
-	  var out = '';
-	  if(!indent)
-	  	indent = 0;
-	  for (var p in o) {
-	  	for(var i=0; i<indent*4; i++)
-	  		out += ' ';
-	  	if(typeof o[p] === 'object')
-	  		out += p + ': \n' + printObject(o[p], indent+1);
-	  	else
-	    	out += p + ': ' + o[p] + '\n';
-	  }
-	  return out;
-	}
+	var out = '';
+	if(!indent)
+		indent = 0;
+	  	for (var p in o) {
+	  		for(var i=0; i<indent*4; i++)
+	  			out += ' ';
+	  			if(typeof o[p] === 'object')
+	  				out += p + ': \n' + printObject(o[p], indent+1);
+	  			else
+	    			out += p + ': ' + o[p] + '\n';
+	  	}
+	return out;
+}
 
-function Context(){
+exports.context = function Context(){
 	this.entities = [];
 	this.attributes = [];
 	this.relations = [];
@@ -148,26 +140,3 @@ function Context(){
 
 
 }
-
-console.log('Hello user, welcome on CssenSass !');
-console.log('Test of context.js :');
-
-var testContext = new Context();
-
-for (i=0; i<cssContent.rulesets.length; i++){
-	testContext.addEntity(cssContent.rulesets[i].selector);	
-}
-
-
-for (i=0; i<cssContent.rulesets.length; i++){
-	testContext.addAttribute(cssContent.rulesets[i].declaration);	
-}
-
-
-for (i=0; i<cssContent.rulesets.length; i++){
-	testContext.addRelation(cssContent.rulesets[i].selector, cssContent.rulesets[i].declaration);	
-}
-
-console.log(testContext);
-
-testContext.printMatrixElement();
