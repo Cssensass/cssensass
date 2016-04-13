@@ -1,5 +1,5 @@
+//////// Arborescence //////////////////////////////
 
-// Arborescence ///////////////////////////////
 Array.prototype.inArray = function(comparer) { 
     for(var i=0; i < this.length; i++) { 
         if(comparer(this[i])) return true; 
@@ -95,6 +95,9 @@ function f(attributes, relations, entities) {
 }
 var attrib = [{key:'background'}];
 var obj = [{selector:'body'}, {selector: '#left'}];
-//console.log(g(cssContent, attrib));
-//console.log(f(cssContent, obj));
+
+/////// TESTS /////////////////////////// 
+
+console.log(g(entities, relations, attrib));
+console.log(f(attributes, reverseRelations, obj));
 
