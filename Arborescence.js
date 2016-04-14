@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 //////// Arborescence //////////////////////////////
 
 Array.prototype.inArray = function(comparer) { 
@@ -93,10 +95,16 @@ function f(attributes, relations, entities) {
   }
   return attributsList;
 }
+
+
 var attrib = [{key:'background'}];
 var obj = [{selector:'body'}, {selector: '#left'}];
 
-/////// TESTS /////////////////////////// 
+/////// TESTS ///////////////////////////
+
+
 
 console.log(g(entities, relations, attrib));
 console.log(f(attributes, reverseRelations, obj));
+console.log(f(attributes, reverseRelations, obj));
+
