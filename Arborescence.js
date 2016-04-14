@@ -57,7 +57,7 @@ function g(entities, reverseRelations, attributes) {
         for(k = 0; k < reverseRelations[i][0].length; k++){
             if((reverseRelations[i][0][k].key == attributes[j].key) && (reverseRelations[i][1] == attributes[j].value)){
                 listTmp.pushIfNotExist(reverseRelations[i][1], function(e){
-                return reverseRelations[i][1] === e;
+                    return reverseRelations[i][1] === e;
                 });
             }    
         }  
@@ -74,7 +74,7 @@ function f(attributes, relations, entities) {
   //var attributsList = initAttributsList(columns);
   var i,j,k;
 
-  for(j = 0; j < entiites.length; j++){
+  for(j = 0; j < entities.length; j++){
     var listTmp = [];
     for(i = 0; i < relations.length; i++){
         if(relations[i].key == entities[j].key){
@@ -103,8 +103,37 @@ var obj = [{selector:'body'}, {selector: '#left'}];
 /////// TESTS ///////////////////////////
 
 
+var CSSParser = require("css-js");
+var fs = require("fs");
+var matrixTest = new (require('./context'))();
 
-console.log(g(entities, relations, attrib));
-console.log(f(attributes, reverseRelations, obj));
-console.log(f(attributes, reverseRelations, obj));
+var config = {};
+config.ver = "3.0";
+parser = new CSSParser(config);
 
+var cssContent = parser.parse(fs.readFileSync("test.css", "UTF-8"));
+
+console.log('Hello user, welcome on CssenSass !');
+console.log('Test of context.js :');
+var EntitiesTab = [];
+for (i=0; i<cssContent.rulesets.length; i++){
+  matrixTest.addEntity(cssContent.rulesets[i].selector);  
+}
+
+
+for (i=0; i<cssContent.rulesets.length; i++){
+  matrixTest.addAttribute(cssContent.rulesets[i].declaration);  
+}
+
+
+for (i=0; i<cssContent.rulesets.length; i++){
+  matrixTest.addRelation(cssContent.rulesets[i].selector, cssContent.rulesets[i].declaration);  
+}
+
+
+//matrixTest.printMatrixElement();
+console.log(matrixTest.entities)
+console.log(matrixTest.attributes)
+
+console.log(g(matrixTest.entities, matrixTest.relations, matrixTest.attributes));
+console.log(f(matrixTest.attributes, matrixTest.reverseRelations, matrixTest.entities));
