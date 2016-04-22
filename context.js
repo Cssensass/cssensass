@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 
 
 function printObject(o, indent) {
@@ -38,8 +37,8 @@ var context = function Context(){
 	};
 
 	this.removeDuplicationKeys = function(Array){
-		for(i=0; i<Array.length-1; i++){
-			for(j=i+1; j<Array.length; j++){
+		for(i=0; i<Array.length; i++){
+			for(j=i; j<Array.length; j++){
 				if(Array[i].key == Array[j].key){
 					Array.splice(j,1);
 				}
@@ -49,7 +48,7 @@ var context = function Context(){
 
 	this.removeDuplicationKeyValue = function(Array){
 		for(i=0; i<Array.length-1; i++){
-			for(j=i+1; j<Array.length; j++){
+			for(j=i; j<Array.length; j++){
 				if(Array[i].key == Array[j].key && Array[i].value == Array[j].value){
 					Array.splice(j,1);
 				}
@@ -61,19 +60,25 @@ var context = function Context(){
 		this.entities.push(entity);
 	}
 
-	this.addAttribute = function(attribute){
+	this.addAttribute = function(attribute, lengthRuleSets){
 		
-		for(j=0; j<attribute.length;j++){
-			attributesTab[j] = Object.create(attributesConstructor); 
-			attributesTab[j].init(attribute[j].key, attribute[j].value);
-			attributesTabFinal.push(attributesTab[j]);
+		for(i=0; i<lengthRuleSets;i++){
+            for(j=0; j<attribute[i].declaration.length;j++){
+                
+                attributesTab[j] = Object.create(attributesConstructor); 
+                attributesTab[j].init(attribute[i].declaration[j].key, attribute[i].declaration[j].value);
+                attributesTabFinal.push(attributesTab[j]);
 
-			attributesTabKeyOnly[j] = Object.create(attributesConstructor); 
-			attributesTabKeyOnly[j].initKeyOnly(attribute[j].key);
-			attributesTabKeyOnlyFinal.push(attributesTabKeyOnly[j]);
-
+                attributesTabKeyOnly[j] = Object.create(attributesConstructor); 
+                attributesTabKeyOnly[j].initKeyOnly(attribute[i].declaration[j].key);
+                attributesTabKeyOnlyFinal.push(attributesTabKeyOnly[j]);
+            }
+            
 		}
-
+        console.log(attributesTabFinal);
+       this.removeDuplicationKeyValue(attributesTabFinal);
+     console.log(attributesTabFinal);
+        this.removeDuplicationKeys(attributesTabKeyOnlyFinal);
 		this.attributes = attributesTabFinal.concat(attributesTabKeyOnlyFinal);
 	}
 
@@ -112,7 +117,6 @@ var context = function Context(){
 		console.log();
 
 		console.log('Attributes :');
-		this.removeDuplicationKeyValue(this.attributes);
 		for(var i=0; i<this.attributes.length; i++){
 			if(this.attributes[i].value == undefined){
 				console.log('\t Key is: ' + this.attributes[i].key);
