@@ -75,9 +75,8 @@ var context = function Context(){
             }
             
 		}
-        console.log(attributesTabFinal);
-       this.removeDuplicationKeyValue(attributesTabFinal);
-     console.log(attributesTabFinal);
+       
+        this.removeDuplicationKeyValue(attributesTabFinal);
         this.removeDuplicationKeys(attributesTabKeyOnlyFinal);
 		this.attributes = attributesTabFinal.concat(attributesTabKeyOnlyFinal);
 	}
