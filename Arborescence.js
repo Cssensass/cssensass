@@ -1,4 +1,3 @@
-#!/usr/bin/env node
 
 //////// Arborescence //////////////////////////////
 
@@ -45,67 +44,59 @@ function initAttributsList(attributsArray){
     return arr;
 }
 
-function g(entities, reverseRelations, attributes) {
-  
 
-  //var objectsList = initObjectsList(lines);
-  var i,j,k;
+function fonctionF(attributes, relations, entities) {
+    var listTmpFinal = [];
+      //var attributsList = initAttributsList(columns);
+      var i,j,k;
 
-  for(j = 0; j < attributes.length; j++){
-    var listTmp = [];
-    for(i = 0; i < reverseRelations.length; i++){
-        for(k = 0; k < reverseRelations[i][0].length; k++){
-            if((reverseRelations[i][0][k].key == attributes[j].key) && (reverseRelations[i][1] == attributes[j].value)){
-                listTmp.pushIfNotExist(reverseRelations[i][1], function(e){
-                    return reverseRelations[i][1] === e;
-                });
-            }    
-        }  
+      for(j = 0; j < attributes.length; j++){
+          var listTmp = [];
+          var elmt = 0;
+          
+          if(attributes[j].value == undefined){
+              for (i = 0 ;i < relations.length; i++){ 
+                     for (k = 0; k < relations[i][1].length; k++){          
+                         if(attributes[j].key == relations[i][1][k].key){
+
+                             listTmp[j] = attributes[j].key;
+
+                             elmt ++;
+                         }
+
+                    }
+              }
+
+          }
+          if(attributes[j].value != undefined){
+              for (i = 0 ;i < relations.length; i++){ 
+                     for (k = 0; k < relations[i][1].length; k++){          
+                         if(attributes[j].key == relations[i][1][k].key && attributes[j].value == relations[i][1][k].value){
+
+                             listTmp[j] = attributes[j].key + ' : '+attributes[j].value ;
+
+                             elmt ++;
+                         }
+
+                    }
+              }
+
+          }
+          if(elmt == relations.length){
+              listTmpFinal.push(listTmp[j])
+
+          }
+          //incrementation variable trouvé
+      }
+
+        return listTmpFinal;
     }
-    var objectsList = intersect(entities, listTmp);
-  }
-  return objectsList;
-}
-
-
-
-function f(attributes, relations, entities) {
-
-  //var attributsList = initAttributsList(columns);
-  var i,j,k;
-
-  for(j = 0; j < entities.length; j++){
-    var listTmp = [];
-    for(i = 0; i < relations.length; i++){
-        if(relations[i].key == entities[j].key){
-            var elementTag;
-            for (k = 0; k < relations[i][1].length; k++){          
-                if(relations[i][1][k].value != null){
-                    elementTag = relations[i][1][k].key + ' : ' + relations[i][1][k].value;
-                }else{
-                    elementTag = relations[i][1][k].key;
-                }
-                listTmp.pushIfNotExist(elementTag, function(e){
-                    return elementTag === e;
-                });
-            }    
-        }
-    }
-    attributsList = intersect(attributes, listTmp);
-  }
-  return attributsList;
-}
-
-
-var attrib = [{key:'background'}];
-var obj = [{selector:'body'}, {selector: '#left'}];
-
-/////// TESTS ///////////////////////////
 
 
 var CSSParser = require("css-js");
 var fs = require("fs");
 var matrixTest = new (require('./context'))();
+//var arbotest = new (require('./arbo'))();
 
 var config = {};
 config.ver = "3.0";
@@ -116,24 +107,19 @@ var cssContent = parser.parse(fs.readFileSync("test.css", "UTF-8"));
 console.log('Hello user, welcome on CssenSass !');
 console.log('Test of context.js :');
 var EntitiesTab = [];
+
 for (i=0; i<cssContent.rulesets.length; i++){
-  matrixTest.addEntity(cssContent.rulesets[i].selector);  
+	matrixTest.addEntity(cssContent.rulesets[i].selector);	
 }
 
 
+	matrixTest.addAttribute(cssContent.rulesets, cssContent.rulesets.length);	
+
+
+
 for (i=0; i<cssContent.rulesets.length; i++){
-  matrixTest.addAttribute(cssContent.rulesets[i].declaration);  
+	matrixTest.addRelation(cssContent.rulesets[i].selector, cssContent.rulesets[i].declaration);	
 }
 
 
-for (i=0; i<cssContent.rulesets.length; i++){
-  matrixTest.addRelation(cssContent.rulesets[i].selector, cssContent.rulesets[i].declaration);  
-}
-
-
-//matrixTest.printMatrixElement();
-console.log(matrixTest.entities)
-console.log(matrixTest.attributes)
-
-console.log(g(matrixTest.entities, matrixTest.relations, matrixTest.attributes));
-console.log(f(matrixTest.attributes, matrixTest.reverseRelations, matrixTest.entities));
+console.log(fonctionF(matrixTest.attributes, matrixTest.relations, matrixTest.entities));
