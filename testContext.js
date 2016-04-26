@@ -21,7 +21,7 @@ for (i=0; i<cssContent.rulesets.length; i++){
 }
 
 
-	matrixTest.addAttribute(cssContent.rulesets, cssContent.rulesets.length);	
+matrixTest.addAttribute(cssContent.rulesets, cssContent.rulesets.length);	
 
 
 
@@ -33,10 +33,20 @@ for (i=0; i<cssContent.rulesets.length; i++){
 /*arbotest.fonctionF(matrixTest.attributes, matrixTest.relations, matrixTest.entities);
 
 console.log(arbotest.listTmpFinal);*/
+
 //console.log(matrixTest);
+console.log('\n');
+console.log(matrixTest.entities);
 console.log('\n');
 console.log(matrixTest.attributes);
 console.log('\n');
-//matrixTest.printMatrixElement();
+console.log(matrixTest.attributes[1]);
+console.log('\n');
+console.log(matrixTest.attributes[1].key);
+console.log('\n');
 console.log(matrixTest.relations);
 console.log('\n');
+console.log(matrixTest.relations[1][1][0].key);
+console.log('\n');
+
+//matrixTest.printMatrixElement();

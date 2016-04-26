@@ -38,7 +38,7 @@ var context = function Context(){
 
 	this.removeDuplicationKeys = function(Array){
 		for(i=0; i<Array.length; i++){
-			for(j=i; j<Array.length; j++){
+			for(j=i+1; j<Array.length; j++){
 				if(Array[i].key == Array[j].key){
 					Array.splice(j,1);
 				}
@@ -47,8 +47,8 @@ var context = function Context(){
 	}
 
 	this.removeDuplicationKeyValue = function(Array){
-		for(i=0; i<Array.length-1; i++){
-			for(j=i; j<Array.length; j++){
+		for(i=0; i<Array.length; i++){
+			for(j=i+1; j<Array.length-1; j++){
 				if(Array[i].key == Array[j].key && Array[i].value == Array[j].value){
 					Array.splice(j,1);
 				}
