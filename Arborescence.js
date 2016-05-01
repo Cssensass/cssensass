@@ -1,8 +1,6 @@
 
 //////// Arborescence //////////////////////////////
 
-//////// Arborescence //////////////////////////////
-
 Array.prototype.inArray = function(comparer) { 
     for(var i=0; i < this.length; i++) { 
         if(comparer(this[i])) return true; 
@@ -83,7 +81,7 @@ function fonctionF(relations, entities) {
     var tabId = [];
     var listTmpKeysFinal = [];
     
-    // chercher la position des selecteurs qu'on a entré dans le fichier test.css
+    // chercher la position des selecteurs qu'on a entré
     for(j = 0; j < entities.length; j++){
         var elmt = 0;
                     
@@ -97,15 +95,21 @@ function fonctionF(relations, entities) {
     console.log("Tableauu d'Ids");
     console.log(tabId);
     console.log("\n");
-                
+    var countKeys=0;
+    var countValues = 0;
     for(j=0;j<relations.length; j++){
-        
+       
         for(i=0; i<entities.length; i++){
-
+            
             if(j == tabId[i]){
+                
                 for(m=0; m<relations[j][1].length; m++){
+                     countKeys++;
                     for(l=0; l<tabId.length; l++){
+                       
                         for(k=0; k<relations[tabId[l]][1].length; k++){
+                            //console.log(l)
+                            //console.log(relations[tabId[l]][1][k].key)
                             if(relations[j][1][m].key == relations[tabId[l]][1][k].key){
                                 listTmpKeys.push(relations[j][1][m].key);
                                 //console.log(relations[j][1][m].key);
@@ -115,7 +119,9 @@ function fonctionF(relations, entities) {
                 }
             }
         }
+        if(countKeys != 0){
         break; 
+        }
     }
     communKeys = KeepDuplicatedKey(listTmpKeys, entities.length);
     //console.log(communKeys);
@@ -127,6 +133,7 @@ function fonctionF(relations, entities) {
 
             if(j == tabId[i]){
                 for(m=0; m<relations[j][1].length; m++){
+                    countValues++;
                     for(l=0; l<tabId.length; l++){
                         for(k=0; k<relations[tabId[l]][1].length; k++){
                             if(relations[j][1][m].key == relations[tabId[l]][1][k].key && relations[j][1][m].value == relations[tabId[l]][1][k].value){
@@ -138,7 +145,9 @@ function fonctionF(relations, entities) {
                 }
             }
         }
-        break; 
+        if(countValues != 0){
+            break; 
+        } 
     }
     communKeysValues = KeepDuplicatedKey(listTmpKeysValues, entities.length);
     FinalTab = communKeysValues.concat(communKeys);
@@ -205,7 +214,7 @@ var config = {};
 config.ver = "3.0";
 parser = new CSSParser(config);
 
-var cssContent = parser.parse(fs.readFileSync("test.css", "UTF-8"));
+var cssContent = parser.parse(fs.readFileSync("test2.css", "UTF-8"));
 
 console.log('Hello user, welcome on CssenSass !');
 console.log('Test of context.js :');
@@ -240,7 +249,7 @@ for(i=0;i<matrixTest.relations.length; i++){
     console.log("\n");
 }
 
-var entitiesTest = ['body','.b'];
+var entitiesTest = ['.info','#content'];
 var attrib = [{ key: 'font-size', value: '1.2em' }, {key: 'color', value: 'black'} ];
 
 console.log("Entites \n")
