@@ -92,7 +92,7 @@ function fonctionF(relations, entities) {
             }
         }
     }
-    console.log("Tableauu d'Ids");
+    console.log("Tableau d'Ids");
     console.log(tabId);
     console.log("\n");
     var countKeys=0;
@@ -108,11 +108,9 @@ function fonctionF(relations, entities) {
                     for(l=0; l<tabId.length; l++){
                        
                         for(k=0; k<relations[tabId[l]][1].length; k++){
-                            //console.log(l)
-                            //console.log(relations[tabId[l]][1][k].key)
+
                             if(relations[j][1][m].key == relations[tabId[l]][1][k].key){
                                 listTmpKeys.push(relations[j][1][m].key);
-                                //console.log(relations[j][1][m].key);
                             }
                         }  
                     }
@@ -156,54 +154,40 @@ function fonctionF(relations, entities) {
         return FinalTab;
     }
 
-function fonctionG(attributes, reverseRelations, entities) {
+function fonctionG(attributes, reverseRelations) {
     var listTmpFinal = [];
+    var listTmp = [];
       //var attributsList = initAttributsList(columns);
-      var i,j,k;
+    var i,j,k;
 
-      for(j = 0; j < attributes.length; j++){
-          var listTmp = [];
-          var elmt = 0;
-          
-          if(attributes[j].value == undefined){
-              console.log("YES");
-              for (i = 0 ;i < reverseRelations.length; i++){ 
-                     for (k = 0; k < reverseRelations[i][0].length; k++){          
-                         if(attributes[j].key == reverseRelations[i][0][k].key){
-
-                             listTmp[i] = entities[i];
-
-                             elmt ++;
-                         }
-
+    for(j = 0; j < attributes.length; j++){
+        var elmt = 0;
+        if(attributes[j].value == undefined){
+            console.log("YES for undefined");
+            for (i = 0 ;i < reverseRelations.length; i++){ 
+                for (k = 0; k < reverseRelations[i][0].length; k++){          
+                    if(attributes[j].key == reverseRelations[i][0][k].key){
+                        listTmp.push(reverseRelations[i][1]);
+                        elmt ++;
                     }
-              }
-
-          }
-          
-          /*if(attributes[j].value != undefined){
-              for (i = 0 ;i < relations.length; i++){ 
-                     for (k = 0; k < relations[i][1].length; k++){          
-                         if(attributes[j].key == relations[i][1][k].key && attributes[j].value == relations[i][1][k].value){
-
-                             listTmp[j] = attributes[j].key + ' : '+attributes[j].value ;
-
-                             elmt ++;
-                         }
-
+                }
+            }
+        }
+        if(attributes[j].value != undefined){
+            console.log("YES for value");
+            for (i = 0 ;i < reverseRelations.length; i++){ 
+                for (k = 0; k < reverseRelations[i][0].length; k++){          
+                    if(attributes[j].key == reverseRelations[i][0][k].key && attributes[j].value == reverseRelations[i][0][k].value){
+                        listTmp.push(reverseRelations[i][1]);
+                        elmt ++;
                     }
-              }
-
-          }*/
-         /* if(elmt == relations.length){
-              listTmpFinal.push(listTmp[j])
-
-          }*/
-          //incrementation variable trouvé
-      }
-        
-        return listTmp;
+                }
+            }
+        }
     }
+    console.log(listTmp.length);
+    return listTmp;
+}
 
 var CSSParser = require("css-js");
 var fs = require("fs");
@@ -214,7 +198,7 @@ var config = {};
 config.ver = "3.0";
 parser = new CSSParser(config);
 
-var cssContent = parser.parse(fs.readFileSync("test2.css", "UTF-8"));
+var cssContent = parser.parse(fs.readFileSync("test.css", "UTF-8"));
 
 console.log('Hello user, welcome on CssenSass !');
 console.log('Test of context.js :');
@@ -234,21 +218,6 @@ for (i=0; i<cssContent.rulesets.length; i++){
 }
 
 
-
-/*console.log('\n');
-console.log("attributes \n");
-console.log(matrixTest.attributes);
-console.log("Entities \n")
-console.log(matrixTest.entities);
-console.log("\n");
-console.log("Relations \n")*/
-
-
-for(i=0;i<matrixTest.relations.length; i++){
-    console.log(matrixTest.relations[i]);
-    console.log("\n");
-}
-
 var entitiesTest = ['.info','#content'];
 var attrib = [{ key: 'font-size', value: '1.2em' }, {key: 'color', value: 'black'} ];
 
@@ -256,8 +225,8 @@ console.log("Entites \n")
 console.log(matrixTest.entities);
 console.log("\ Attributes \n")
 console.log(matrixTest.attributes);
-console.log("\n Fonction f \n")
-console.log(fonctionF(matrixTest.relations, entitiesTest));
+//console.log("\n Fonction f \n")
+//console.log(fonctionF(matrixTest.relations, entitiesTest));
 
-/*console.log(" \n Fonction g \n")
-console.log(fonctionG(matrixTest.attributes, matrixTest.reverseRelations, matrixTest.entities));*/
+console.log(" \n Fonction g \n")
+console.log(fonctionG(matrixTest.attributes, matrixTest.reverseRelations));
