@@ -3,7 +3,8 @@
 
 Array.prototype.inArray = function(comparer) { 
     for(var i=0; i < this.length; i++) { 
-        if(comparer(this[i])) return true; 
+        if(comparer[i]) 
+            return true; 
     }
     return false; 
 }; 
@@ -167,8 +168,12 @@ function fonctionG(attributes, reverseRelations) {
             for (i = 0 ;i < reverseRelations.length; i++){ 
                 for (k = 0; k < reverseRelations[i][0].length; k++){          
                     if(attributes[j].key == reverseRelations[i][0][k].key){
-                        listTmp.push(reverseRelations[i][1]);
-                        elmt ++;
+                        if (listTmp.indexOf(reverseRelations[i][1]) == -1) {
+                            listTmp.push(reverseRelations[i][1]);
+                            elmt ++;
+                        } else {
+                            console.log("Item already exists");
+                        }
                     }
                 }
             }
@@ -178,14 +183,17 @@ function fonctionG(attributes, reverseRelations) {
             for (i = 0 ;i < reverseRelations.length; i++){ 
                 for (k = 0; k < reverseRelations[i][0].length; k++){          
                     if(attributes[j].key == reverseRelations[i][0][k].key && attributes[j].value == reverseRelations[i][0][k].value){
-                        listTmp.push(reverseRelations[i][1]);
-                        elmt ++;
+                        if (listTmp.indexOf(reverseRelations[i][1]) == -1) {
+                            listTmp.push(reverseRelations[i][1]);
+                            elmt ++;
+                        } else {
+                            console.log("Item already exists");
+                        }
                     }
                 }
             }
         }
     }
-    console.log(listTmp.length);
     return listTmp;
 }
 
@@ -219,7 +227,7 @@ for (i=0; i<cssContent.rulesets.length; i++){
 
 
 var entitiesTest = ['.info','#content'];
-var attrib = [{ key: 'font-size', value: '1.2em' }, {key: 'color', value: 'black'} ];
+var attrib = [{ key: 'padding', value: '0' }];
 
 console.log("Entites \n")
 console.log(matrixTest.entities);
@@ -229,4 +237,4 @@ console.log(matrixTest.attributes);
 //console.log(fonctionF(matrixTest.relations, entitiesTest));
 
 console.log(" \n Fonction g \n")
-console.log(fonctionG(matrixTest.attributes, matrixTest.reverseRelations));
+console.log(fonctionG(attrib, matrixTest.reverseRelations));
