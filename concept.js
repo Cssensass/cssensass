@@ -1,6 +1,3 @@
-var set = require('./hashset');
-var fcaElmt = require('./fcaelement');
-//var extents = require('./fcaelement');
 
 function Concept() {
 
@@ -12,19 +9,19 @@ function Concept() {
 	this.extents = [];
 	this.intents = [];
 
-	this.addParent = function(concept){
+	this.addParent = function(conceptParent){
 		this.parents.push(concept);
 	}
 
-	this.addChild = function(concept){
+	this.addChild = function(conceptChild){
 		this.children.push(concept);
 	}	
 
-	this.removeParent = function(concept){
+	this.removeParent = function(conceptParent){
 		this.parents.remove(concept);
 	}
 
-	this.removeChild = function(concept){
+	this.removeChild = function(conceptChild){
 		this.children.remove(concept);
 	}
 
@@ -46,25 +43,22 @@ function Concept() {
 
 	this.getSimplifiedExtents = function() {
 		var simplifiedExtents = [];
-		for(i=0; i<this.getExtents().length; i++){
+		var extentsFromConcept = this.getExtents();
+		for(i=0; i<extentsFromConcept.length; i++){
 			var leafEntity = true;
-			for(j=0;)
+			for(j=0; j<this.children.length; j++){
+				var extentsFromChild = this.children[j].getExtents();
+				for(k=0; k<extentsFromChild.length; k++){
+					if(extentsFromChild[k] == extentsFromConcept[i]){
+						leafEntity = false;
+					}
+				}
+				if (leafEntity){
+					simplifiedExtents.push(extentsFromConcept[i]);
+				}
+			}
 		}
-	}
-
-	this.equals = function(obj){
-		if(obj == null){
-			return false;
-		} else if(obj == this){
-			return true;
-		} else if(!(obj instanceof Concept)) {
-			return false;
-		} else {
-			var other = new Concept();
-			obj = new Concept();
-			other = obj;
-			return other.intents.equals(this.intents) && other.extents.equals(this.extents);
-		}
+		return simplifiedExtents;
 	}
 
 }
