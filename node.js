@@ -28,4 +28,22 @@ function Node(identifier, entities, attributes){
 		return result
 	}
 
+	this.getParents = function(){
+		return this.parents;
+	}
+
+	this.getChildren = function() {
+		return this.children;
+	}
+
+	this.getAllParents = function() {
+		var result = [];
+		var tmp = [];
+		tmp.push(this);
+		while(tmp.length > 0){
+			node = pickOne(tmp);
+			if()
+		}
+	}
+
 }
