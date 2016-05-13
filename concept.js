@@ -1,3 +1,6 @@
+//Function to generate concept thanks to function f and g
+//And then generate Nodes and Lattices.
+
 
 function Concept() {
 
@@ -10,19 +13,19 @@ function Concept() {
 	this.intents = [];
 
 	this.addParent = function(conceptParent){
-		this.parents.push(concept);
+		this.parents.push(conceptParent);
 	}
 
 	this.addChild = function(conceptChild){
-		this.children.push(concept);
+		this.children.push(conceptChild);
 	}	
 
 	this.removeParent = function(conceptParent){
-		this.parents.remove(concept);
+		this.parents.remove(conceptParent);
 	}
 
 	this.removeChild = function(conceptChild){
-		this.children.remove(concept);
+		this.children.remove(conceptChild);
 	}
 
 	this.getParents = function(){
