@@ -1,3 +1,31 @@
+function contains(a, obj) {
+    for (var i = 0; i < a.length; i++) {
+        if (a[i] == obj) {
+            return true;
+        }
+    }
+    return false;
+}
+
+function iteratorNodes(array){
+    var nextIndex = 0;
+    
+    return {
+       	next: function(){
+        	return nextIndex < array.length ?
+            {value: array[nextIndex++], done: false} :
+            {done: true};
+       	}
+
+       	remove: function(){
+       		var idx = array.indexOf(nextIndex);
+       		if(idx!=-1){
+       			array.splice(idx,1);
+       		}
+       	}
+    }
+}
+
 // Function to generate Nodes from concept
 
 function Node(identifier, entities, attributes){
@@ -42,8 +70,36 @@ function Node(identifier, entities, attributes){
 		tmp.push(this);
 		while(tmp.length > 0){
 			node = pickOne(tmp);
-			if()
+			if(!(this.contains(result, node))){
+				result.push(node);
+				tmp.push(node.getParents());
+			}
 		}
+		return result;
+	}
+
+	this.getAllChildren = function() {
+		var result = [];
+		var tmp = [];
+		tmp.push(this);
+		while(tmp.length > 0){
+			node = pickOne(tmp);
+			if(!(this.contains(result, node))){
+				result.push(node);
+				tmp.push(node.getChildren());
+			}
+		}
+		return result;	
+	}
+
+	this.pickOne = function(nodes){
+		if(nodes.length == 0){
+			return null;
+		}
+		var it = iteratorNode(nodes);
+		var tmp = it.next();
+		it.remove();
+		return tmp;
 	}
 
 }
