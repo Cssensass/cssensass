@@ -1,8 +1,6 @@
 
 
-function lattice(){
-
-	var nodes = [];
+function lattice(nodes){
 
 	this.topologicalOrder = function(){
 		var result = [];
@@ -26,6 +24,11 @@ function lattice(){
 			topologicalOrder.push(node);
 		}
 	}
+
+	this.getNodes = function(){
+		return this.nodes;
+	}
+
 	this.getLeaves = function(){
 		var leaves = [];
 		for(i = 0, i < this.nodes.length, i++){
