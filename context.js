@@ -1,5 +1,8 @@
+// File to implement functions that will generate 
+// the Matrix context
 
 
+//Function to display objects content
 function printObject(o, indent) {
 	var out = '';
 	if(!indent)
@@ -15,6 +18,8 @@ function printObject(o, indent) {
 	return out;
 }
 
+
+// Function to generate Matrix context
 var context = function Context(){
 	this.entities = [];
 	this.attributes = [];

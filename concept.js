@@ -1,6 +1,13 @@
 //Function to generate concept thanks to function f and g
 //And then generate Nodes and Lattices.
 
+function containsAll(needles, haystack){ 
+  for(var i = 0 , len = needles.length; i < len; i++){
+     if($.inArray(needles[i], haystack) == -1) return false;
+  }
+  return true;
+}
+
 
 function Concept() {
 
@@ -62,6 +69,18 @@ function Concept() {
 			}
 		}
 		return simplifiedExtents;
+	}
+
+	// Function isGreaterThan & isSmallerThan that check the
+	// content of 2 extents table between two concept
+	// useful to compute table of concepts in arborescence.js
+	
+	this.isGreaterThan = function(concept){
+		return containsAll(this.extents, concept.extents);
+	}
+
+	this.isSmallerThan = function(concept){
+		return containsAll(concept.extents, this.extents);
 	}
 
 }
