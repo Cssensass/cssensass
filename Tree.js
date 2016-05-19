@@ -1,4 +1,4 @@
-//////// Arborescence //////////////////////////////
+/////////////////////////////// Arborescence //////////////////////////////
 
 Array.prototype.inArray = function(comparer) { 
     for(var i=0; i < this.length; i++) { 
@@ -82,8 +82,7 @@ var arborescence = function Arborescence(){
         var listTmpKeysValues = [];
         var tabId = [];
         var listTmpKeysFinal = [];
-    
-        // chercher la position des selecteurs qu'on a entré
+        // chercher la position des selecteurs qu'on a entré dans le fichier .css 
         for(j = 0; j < entities.length; j++){
             var elmt = 0;
                     
@@ -121,7 +120,7 @@ var arborescence = function Arborescence(){
             }
         }
         communKeys = KeepDuplicatedKey(listTmpKeys, entities.length);
-        //console.log(communKeys);
+        
         
 
         for(j=0;j<relations.length; j++){
@@ -148,7 +147,7 @@ var arborescence = function Arborescence(){
         }
         communKeysValues = KeepDuplicatedKey(listTmpKeysValues, entities.length);
         FinalTab = communKeysValues.concat(communKeys);
-        //console.log(communKeysValues);
+        
             console.log("The entities have in commun : \n")
             return FinalTab;
     }
@@ -158,7 +157,6 @@ var arborescence = function Arborescence(){
         var listTmp = [];
         var tabId = [];
         var tab = [];
-          //var attributsList = initAttributsList(columns);
         var i,j,k;
 
         var attributesConstructor = {
@@ -183,7 +181,6 @@ var arborescence = function Arborescence(){
                 if(attributesTab[j].value == 'undefinedd'){
                     attributesTab[j].value == 'undefined';
                     for(k=0;k<reverseRelations[i][0].length; k++){
-                        console.log(reverseRelations[i][0][k].key)
                         if(attributesTab[j].key == reverseRelations[i][0][k].key ){
                             tabId.push(reverseRelations[i][1]);
                             
@@ -196,17 +193,13 @@ var arborescence = function Arborescence(){
                 if(attributesTab[j].value != 'undefinedd'){
                     for(m=0;m<reverseRelations[i][0].length; m++){ 
                         if(attributesTab[j].key == reverseRelations[i][0][m].key && attributesTab[j].value == reverseRelations[i][0][m].value ){
-                            
                             tabId.push(reverseRelations[i][1]);
                         }
                     }
                 }
             }
         }
-        
-        //console.log(tabId)
         tab = KeepDuplicatedKey(tabId,attributes.length);
-        //console.log(tab)
         return tab;
     }
         
