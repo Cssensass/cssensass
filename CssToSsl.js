@@ -16,11 +16,11 @@ var cssToSsl = function cssToSsl(){
 		return context;
 	}
 
-	this.generateLatticeFromConcepts = function(concepts){
+	this.generateLatticeFromConcepts = function(concepts){  // Not finished yet
 		var nodes = [];
 		for(var i = 0; i<concepts.length; i++){
 			var entities = concepts[i].getSimplifiedExtents();
-			// Aaaand the fun is coming...
+			// Not finiched yet
 		}
 
 	}
