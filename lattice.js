@@ -1,6 +1,6 @@
 
 
-function lattice(nodes){
+function lattice(nodes){  //takes nodes as input
 
 	this.topologicalOrder = function(){
 		var result = [];
